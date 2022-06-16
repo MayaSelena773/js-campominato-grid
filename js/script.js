@@ -34,6 +34,7 @@
  //Chiediamo il livello all'utente tramite prompt
  const userLevel = prompt ('Scegli il livello tra 1, 2 o 3'); 
  console.log(userLevel);
+ const numberOfBombs = 16;
 
  //Stabilisco i range dei tre livelli
  let gameMaxRange;  
@@ -52,21 +53,58 @@
  }
 
  //Genero le bombe
- const bombs = generateBombs(16, 1, gameMaxRange);
+ const bombs = generateBombs(numberOfBombs, 1, gameMaxRange);
+ console.log(bombs);
+
+ //Numero massimo di tentativi
+ const maxAttemptes = gameMaxRange - numberOfBombs;
+ console.log(maxAttemptes);
+
+  //Array vuoto per i numeri indovinati
+  let guessedNumbers = [];
+
+
+ //Funzionamento del gioco
+ let gameContinue = true;
+
+ while (gameContinue === true) {
+
+   //Si chiede un numero all'utente
+   const userNumber = parseInt(prompt('Scrivi un numero'));
+
+   //Se il numero è una bomba gameContinue diventa false
+    if (bombs.includes(userNumber)) {
+
+      //Finisce il gioco e hai perso
+      gameContinue = false;
+      alert('Hai perso!');
+
+    }else {
+
+      //Se non è una bomba
+      //inserisco il numero nell'array dei numeri indovinati
+      guessedNumbers.push(userNumber);
+      console.log(guessedNumbers);
+
+    }
+
+ }
  
+
+
 
  //------------
  //FUNCTIONS
  //------------
 
  //Generare 16 bombe con numeri random
- function generateBombs (numberOfElements, rangeMIn, rangeMax) {
+ function generateBombs(numberOfElements, rangeMin, rangeMax) {
 
     //Aggiungere i numeri ad un array vuoto senza duplicati
     const randomNumbersArray = [];
     while (randomNumbersArray.lenght < numberOfElements) {
 
-        const randomNumber = getRndInteger(rangeMIn, rangeMax);
+        const randomNumber = getRndInteger(rangeMin, rangeMax);
 
         //pushamo il numero nell'array solo se non è già presente
 
@@ -74,9 +112,8 @@
             randomNumbersArray.push(randomNumber);
         }
 
-        console.log(randomNumbersArray);
     }
-    
+    console.log(randomNumbersArray);
 
  }
 
