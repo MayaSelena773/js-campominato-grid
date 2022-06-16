@@ -27,7 +27,7 @@
      //se è una bomba termina il gioco con alert: hai perso + punteggio
      //Altrimenti mettiamo il numero in un array (vuoto) dei "numeri indovinati" se non è già presente
      //Se l'utente ha raggiunto il numero massimo di tentativi (lunghezza array indovinati=== numero
-     //max di tentativi) il gioco termina con alert : hai vinto
+     //max di tentativi) il gioco termina con alert : hai vinto!!
 
 
     
@@ -76,15 +76,28 @@
     if (bombs.includes(userNumber)) {
 
       //Finisce il gioco e hai perso
+      //Scrivo anche il numero dei tentativi indovinati
       gameContinue = false;
       alert('Hai perso!');
+      alert('Tentativi giusti: ' + guessedNumbers)
 
     }else {
 
       //Se non è una bomba
+      //e se non è già presente nei numeri indovinati
       //inserisco il numero nell'array dei numeri indovinati
-      guessedNumbers.push(userNumber);
-      console.log(guessedNumbers);
+      if (!guessedNumbers.includes(userNumber)) {
+         guessedNumbers.push(userNumber);
+      }
+
+      //Se l'utente ha indovinato tutti i numeri
+      //si ferma il gioco: hai vinto
+      if(guessedNumbers.length === maxAttemptes) {
+
+         gameContinue = false;
+         alert('Hai vinto!!');
+
+      }
 
     }
 
